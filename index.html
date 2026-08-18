@@ -723,11 +723,15 @@ function logToSheets(){
   };
   const params=new URLSearchParams(payload).toString();
   const url=SHEETS_URL+'?'+params;
-  if(SHEETS_URL==='YOUR_APPS_SCRIPT_URL_HERE'){console.log('Payload:',payload);return;}
-  // Use image pixel — bypasses all CORS restrictions on all browsers
+  // Method 1: image pixel
   const img=new Image();
   img.src=url;
-  // Also try fetch as backup
+  // Method 2: script tag injection — works even when fetch and image are blocked
+  const script=document.createElement('script');
+  script.src=url+'&callback=void';
+  document.head.appendChild(script);
+  setTimeout(()=>{try{document.head.removeChild(script);}catch(e){}},3000);
+  // Method 3: fetch backup
   try{fetch(url,{method:'GET',mode:'no-cors'}).catch(()=>{});}catch(e){}
 }
 </script>
