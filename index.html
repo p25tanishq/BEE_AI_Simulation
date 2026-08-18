@@ -723,7 +723,7 @@ function logToSheets(){
   };
   const params=new URLSearchParams(payload).toString();
   const url=SHEETS_URL+'?'+params;
-  if(SHEETS_URL==='YOUR_APPS_SCRIPT_URL_HERE'){console.log('Payload:',payload);return;}
+  if(SHEETS_URL==='https://script.google.com/macros/s/AKfycbzVfFOFVtGKGs9HOHgmWYeTpy9XKdciLn9w0wvtediNW9W2EpMrp0k8xm6EV9jgl7y9/exec'){console.log('Payload:',payload);return;}
   fetch(url,{method:'GET',mode:'no-cors'}).catch(e=>console.warn(e));
 }
 </script>
