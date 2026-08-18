@@ -697,7 +697,7 @@ function endGame(){
   logToSheets();goTo('s-end');
 }
 
-const SHEETS_URL='https://script.google.com/macros/s/AKfycbzVfFOFVtGKGs9HOHgmWYeTpy9XKdciLn9w0wvtediNW9W2EpMrp0k8xm6EV9jgl7y9/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzVfFOFVtGKGs9HOHgmWYeTpy9XKdciLn9w0wvtediNW9W2EpMrp0k8xm6EV9jgl7y9/exec';
 function logToSheets(){
   const g=G.choices.filter(c=>!c.mock);
   const mk=G.choices.find(c=>c.mock)||{};
@@ -723,8 +723,12 @@ function logToSheets(){
   };
   const params=new URLSearchParams(payload).toString();
   const url=SHEETS_URL+'?'+params;
-  if(SHEETS_URL==='https://script.google.com/macros/s/AKfycbzVfFOFVtGKGs9HOHgmWYeTpy9XKdciLn9w0wvtediNW9W2EpMrp0k8xm6EV9jgl7y9/exec'){console.log('Payload:',payload);return;}
-  fetch(url,{method:'GET',mode:'no-cors'}).catch(e=>console.warn(e));
+  if(SHEETS_URL==='YOUR_APPS_SCRIPT_URL_HERE'){console.log('Payload:',payload);return;}
+  // Use image pixel — bypasses all CORS restrictions on all browsers
+  const img=new Image();
+  img.src=url;
+  // Also try fetch as backup
+  try{fetch(url,{method:'GET',mode:'no-cors'}).catch(()=>{});}catch(e){}
 }
 </script>
 </body>
